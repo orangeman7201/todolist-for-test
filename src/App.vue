@@ -1,13 +1,13 @@
 <template>
   <div>
-    <TodoFilter :todos="todos" @sendRadioState="changeRadioState" @sendFilteredTodo="addFilteredTodo"></TodoFilter>
+    <TodoFilter :todos="todos" @sendRadioState="changeRadioState"></TodoFilter>
     <TodoDisplay :todos="todos" :filteredTodos="filteredTodos" @sendTaskState="chageTaskState" @sendDeleteTask="deleteTask"></TodoDisplay>
     <TodoInput @sendItem="addTodo"></TodoInput>
   </div>
 </template>
 
 <script>
- export default {
+  export default {
     data: function() {
       return {
         todos: [],
@@ -44,28 +44,37 @@
       deleteTask(value) {
         this.todos.splice(value,1);
         this.updateId();
+      },
+      changeFilteredTodo() {
+        this.filteredTodos = [];
+        if(this.radioState === 'all') {
+          this.todos.forEach(todo => {
+          this.filteredTodos.push(todo);
+        })
+        } else if (this.radioState === "working") {
+          this.todos.filter(todo => todo.state === 'working' ).forEach(todo => {
+          this.filteredTodos.push(todo);
+        })
+        } else {
+          this.todos.filter(todo => todo.state === 'finish' ).forEach(todo => {
+          this.filteredTodos.push(todo);
+          })
+        }
       }
     },
     watch: {
       todos: {
         handler: function() {
-          this.filteredTodos = [];
-          if(this.radioState === 'all') {
-            this.todos.forEach(todo => {
-            this.filteredTodos.push(todo);
-          })
-          } else if (this.radioState === "working") {
-            this.todos.filter(todo => todo.state === 'working' ).forEach(todo => {
-            this.filteredTodos.push(todo);
-          })
-          } else {
-            this.todos.filter(todo => todo.state === 'finish' ).forEach(todo => {
-            this.filteredTodos.push(todo);
-            })
-          }
+          this.changeFilteredTodo();
         },
         deep:true,
-      }
+      },
+      radioState: {
+        handler: function() {
+          this.changeFilteredTodo();
+      },
+      deep: true
+      },
     }
- }
+  }
 </script>

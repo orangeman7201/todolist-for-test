@@ -14,21 +14,9 @@
           radioState: 'all',
         }
       },
-      computed: {
-        filteredTodo:function() {
-          if(this.radioState === 'all') {
-            return this.todos;
-          } else if (this.radioState === "working") {
-            return this.todos.filter(todo => todo.state === 'working' );
-          } else {
-            return this.todos.filter(todo => todo.state === 'finish' );
-          } 
-        }
-      },
       watch: {
         radioState: function() {
           this.$emit('sendRadioState', this.radioState);
-          this.$emit('sendFilteredTodo', this.filteredTodo);
         }
       }
   }
