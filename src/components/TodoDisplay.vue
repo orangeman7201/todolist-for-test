@@ -12,9 +12,9 @@
       <thead>
         <tr v-for="todo in filteredTodos" :key="todo.index">
           <td>{{todo.id}}</td>
-          <td>{{todo.task}}</td>
+          <td id="display">{{todo.task}}</td>
           <td>
-            <button v-if="todo.state === 'working'" @click="changeState(todo.id)">作業中</button>
+            <button id="button" v-if="todo.state === 'working'" @click="changeState(todo.id)">作業中</button>
             <button v-else @click="changeState(todo.id)">完了</button>
           </td>
           <td><button @click="deleteTask(todo.id)">削除</button></td>
@@ -26,7 +26,7 @@
 
 <script>
   export default {
-    props: ['todos', 'filteredTodos'],
+    props: ['filteredTodos'],
     methods: {
       changeState(index) {
         this.$emit("sendTaskState", index);

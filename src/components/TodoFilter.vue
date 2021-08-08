@@ -8,7 +8,6 @@
 
 <script>
   export default {
-      props: ['todos'],
       data: function() {
         return {
           radioState: 'all',

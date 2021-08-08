@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="addTodo">
+    <form id="input-form" @submit.prevent="addTodo">
       <input type="text" v-model="newTodo">
       <input type="submit" value="追加">
     </form>

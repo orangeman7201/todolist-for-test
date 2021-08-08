@@ -1,7 +1,7 @@
 <template>
   <div>
-    <TodoFilter :todos="todos" @sendRadioState="changeRadioState"></TodoFilter>
-    <TodoDisplay :todos="todos" :filteredTodos="filteredTodos" @sendTaskState="chageTaskState" @sendDeleteTask="deleteTask"></TodoDisplay>
+    <TodoFilter @sendRadioState="changeRadioState"></TodoFilter>
+    <TodoDisplay :filteredTodos="filteredTodos" @sendTaskState="chageTaskState" @sendDeleteTask="deleteTask"></TodoDisplay>
     <TodoInput @sendItem="addTodo"></TodoInput>
   </div>
 </template>
